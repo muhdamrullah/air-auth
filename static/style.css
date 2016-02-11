@@ -29,6 +29,22 @@ body {
     margin-bottom: 20px;
 }
 
+.login-block h2 {
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: Montserrat;
+    font-weight: 200;
+    color: grey;
+    padding: 10 0px 0 0px;
+    outline: none;
+    text-align: center;
+}
+
 .login-block input {
     width: 100%;
     height: 42px;
