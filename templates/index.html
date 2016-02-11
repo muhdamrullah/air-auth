@@ -12,12 +12,18 @@
 		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
 		<div class="logo"></div>
 		<div class="login-block">
-    		<h1>Login</h1>
+    		<h1 id="header">Login</h1>
 		<form action="." method="POST">
-    		<input type="text" value="" placeholder="Username" name="username" id="username"/>
-    		<input type="password" value="" placeholder="Password" name="password" id="password" />
-    		<button type="submit" value="Send" name="myform">Submit</button>
+    		<input type="text" value="" placeholder="Name" name="username" id="username"/>
+		{% if PHONE %}
+		<input type="password" value="" placeholder="Phone Number Must Be 8-digit" name="password" id="password" />
+		{% else %}
+		<input type="password" value="" placeholder="Phone Number" name="password" id="password" />
+		{% endif %}
+    		<button type="submit" value="Send" name="myform" id="submitbtn">Submit</button>
 		</form>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="static/loading.js"></script>
 		</div>
 	</body>
 </html>
