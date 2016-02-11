@@ -13,10 +13,9 @@ def createHotspot():
     time.sleep(1)
     subprocess.call('ifconfig wlan0 up', shell=True)
     time.sleep(1)
-    subprocess.Popen('airbase-ng -e OpenWifi -c 6 wlan0 >> test.csv', shell=True)
+    subprocess.Popen('airbase-ng -e Authentication -c 6 wlan0 >> test.csv', shell=True)
     time.sleep(10)
-    searchMAC()
-    subprocess.call('pkill airbase-ng', shell=True)
+    return searchMAC()
     time.sleep(1)
 
 def searchMAC():
@@ -27,7 +26,7 @@ def searchMAC():
             searchFilter = 'Client'
 	    if searchFilter in last:
                 result = re.search("Client (.*) associated", last)
-                print result.group(1)
+                return result.group(1)
 	        time.sleep(5)
 	        break
 	    else:
@@ -42,10 +41,12 @@ def my_form():
 @app.route('/', methods=['POST'])
 def my_form_post():
 
-    text = request.form['text']
+    text = request.form['username']
     processed_text = text.upper()
-    createHotspot()
-    return processed_text
+    mac_address = createHotspot()
+    subprocess.call('pkill airbase-ng', shell=True)
+    return render_template("second.html",
+			    h1=mac_address)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run('192.168.1.196', 8080)
