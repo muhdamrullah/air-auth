@@ -1,10 +1,9 @@
-from flask import Flask
-from flask import request
 from flask import render_template
 import subprocess
 import time
 import re
 import csv
+import datetime
 
 def createHotspot():
     subprocess.call('ifconfig wlan0 down', shell=True)
@@ -32,6 +31,12 @@ def searchMAC():
 	    else:
 	        time.sleep(5)
 
+def saveDatabase():
+    myFile = open('database.csv','a')
+    global dataBase
+    myFile.write(dataBase)
+    myFile.close()
+    
 app = Flask(__name__)
 
 @app.route('/')
@@ -41,12 +46,20 @@ def my_form():
 @app.route('/', methods=['POST'])
 def my_form_post():
 
-    text = request.form['username']
-    processed_text = text.upper()
+    name_id = request.form['username']
+    phone_id = request.form['password']
     mac_address = createHotspot()
+    time_stamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
     subprocess.call('pkill airbase-ng', shell=True)
-    return render_template("second.html",
-			    h1=mac_address)
+    global dataBase
+    dataBase = "%s, %s, %s, %s" % (time_stamp, name_id, phone_id, mac_address)
+    saveDatabase()
+    return render_template("result.html",
+			    NAME=name_id,
+			    PHONE=phone_id,
+			    MAC_ID=mac_address)
 
 if __name__ == '__main__':
+    dataBase=""
+    app.debug = True
     app.run('192.168.1.196', 8080)
