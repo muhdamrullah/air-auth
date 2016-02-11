@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<title>Facerecog Front Login</title>
+		<link rel="stylesheet" href="static/style.css">
+		<link rel="shortcut icon" href="images/favicon.ico" type="image/vnd.microsoft.icon"/>
+
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta property="og:description" content="Forging a beautiful connection."/>
+	</head>
+	<body>
+		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+		<div class="logo"></div>
+		<div class="login-block">
+    		<h1>Authentication Successful</h1>
+		{% if NAME %}
+		<h2>{{ NAME }}</h2>
+		{% else %}
+		<h2>Your Name.</h2>
+		{% endif %}
+		{% if PHONE %}
+		<h2>{{ PHONE }}</h2>
+		{% else %}
+		<h2>Your Phone.</h2>
+		{% endif %}
+		{% if MAC_ID %}
+		<h2>{{ MAC_ID }}</h2>
+		{% else %}
+		<h2>Your Unique.</h2>
+		{% endif %}
+		</form>
+		</div>
+	</body>
+</html>
