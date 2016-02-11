@@ -64,8 +64,7 @@ def my_form_post():
     global dataBase
     dataBase = "%s, %s, %s, %s\n" % (time_stamp, name_id, phone_id, mac_address)
     # Authentication and verification to make sure fields are inputted correctly
-    phone_int = int(phone_id)
-    if phone_int < 100000000 and phone_int > 9999999 and mac_address:
+    if len(phone_id) == 8 and phone_id.isdigit() and mac_address:
 	saveDatabase()
 	return render_template("result.html",
 			    NAME=name_id,
