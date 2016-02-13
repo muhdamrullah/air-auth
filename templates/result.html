@@ -7,7 +7,7 @@
 		<meta charset="utf-8"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta property="og:description" content="Forging a beautiful connection."/>
-		<meta http-equiv="refresh" content="6; url=http://192.168.1.196:8080/" />
+		<meta http-equiv="refresh" content="8; url=http://192.168.1.196:8080/" />
 	</head>
 	<body>
 		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
@@ -28,6 +28,21 @@
 		<h2>{{ MAC_ID }}</h2>
 		{% else %}
 		<h2>Your Unique.</h2>
+		{% endif %}
+		{% if BRICK %}
+		<h2>You have {{ BRICK }} bricks</h2>
+		{% else %}
+		<h2>You start with 1 brick.</h2>
+		{% endif %}
+		{% if BRICK_PIC %}
+		<h1><img src="{{ BRICK_PIC }}" alt="Brick Picture" /></h1>
+		{% else %}
+		<h1><img src="http://i.imgur.com/PnBOmXU.png" alt="Brick Picture" /></h1>
+		{% endif %}
+		{% if BRICK_TEXT %}
+		<h1>{{ BRICK_TEXT }}</h1>
+		{% else %}
+		<h1>A soft mud brick</h1>
 		{% endif %}
 		</form>
 		</div>
