@@ -38,7 +38,7 @@ while True:
         raw3_file_list = raw2_file_list[raw2_file_list!="-99"]
         index_file_list = np.array([int(((x.split("-")[1]).split("."))[0]) for x in raw3_file_list])
         file_list= np.array([y[1] for y in sorted(zip(index_file_list, raw3_file_list),key=lambda x:x[0])])
-        os.chdir("../Raw/")
+        os.chdir("../airodump/")
         os.system("cat %s > ../hello_again/onelevel/real_time_combined_R.csv"%(cat_string(file_list)))
         os.chdir("../hello_again/")
 
