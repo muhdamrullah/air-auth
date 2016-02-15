@@ -33,14 +33,14 @@ while True:
 
     try:
 
-        raw1_file_list = glob.glob("../Raw/*.csv")
+        raw1_file_list = glob.glob("../airodump/*.csv")
         raw2_file_list= np.array([x.split("/")[2] if "kismet" not in x else "-99" for x in raw1_file_list])
         raw3_file_list = raw2_file_list[raw2_file_list!="-99"]
         index_file_list = np.array([int(((x.split("-")[1]).split("."))[0]) for x in raw3_file_list])
         file_list= np.array([y[1] for y in sorted(zip(index_file_list, raw3_file_list),key=lambda x:x[0])])
         os.chdir("../Raw/")
-        os.system("cat %s > ../Hello_Again/onelevel/real_time_combined_R.csv"%(cat_string(file_list)))
-        os.chdir("../Hello_Again/")
+        os.system("cat %s > ../hello_again/onelevel/real_time_combined_R.csv"%(cat_string(file_list)))
+        os.chdir("../hello_again/")
 
         with open('./onelevel/real_time_combined_R.csv','r') as in_file, open('./onelevel/full_day_R.csv','w') as out_file:
             switch = 0
