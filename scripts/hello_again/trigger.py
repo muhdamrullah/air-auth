@@ -9,7 +9,7 @@ import glob
 import subprocess
 
 def findPhone(mac_address):
-    with open('../air-auth/database.csv') as dataBase:
+    with open('../../database.csv') as dataBase:
         for line in dataBase:
 	    column = line.split(', ')
 	    if mac_address in line:
