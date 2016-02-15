@@ -18,7 +18,7 @@ def createHotspot():
     time.sleep(1)
     # Start the airbase-ng command with the Wi-Fi called 'Authenticate'
     subprocess.Popen('airbase-ng -e Authenticate -c 6 wlan0 >> test.csv', shell=True)
-    time.sleep(10)
+    time.sleep(3)
     return searchMAC()
     time.sleep(1)
 
@@ -137,6 +137,28 @@ def my_form_post():
 	return render_template("index.html",
 			    HEADER="Failed",
 			    PHONE=phone_id)
+
+@app.route('/secret/')
+def my_secret_form():
+    out = subprocess.check_output('pidof python', shell=True)
+    if len(out.split()) < 5:
+        return render_template("secret.html",
+			    STATE="off")
+    else:
+	return render_template("secret.html")
+
+@app.route('/secret/', methods=['POST'])
+def my_secret_form_post():
+    out = subprocess.check_output('pidof python', shell=True)
+    if len(out.split()) < 5:
+	subprocess.call('cd scripts/airodump && screen -AdmS airodump ./auto.py', shell=True)
+	subprocess.call('cd scripts/hello_again && python master_script.py', shell=True)
+	return render_template("secret.html")
+    else:
+	subprocess.call('screen -S airodump -X quit', shell=True)
+	subprocess.call('cd scripts/hello_again && python kill_master_script.py', shell=True)
+        return render_template("secret.html",
+			    STATE="off")
 
 # Main command to run on the local IP: 192.168.1.196 and port: 8080. 
 if __name__ == '__main__':
