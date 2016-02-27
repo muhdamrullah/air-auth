@@ -8,7 +8,7 @@ import csv
 import datetime
 
 # Create a temporary AP to harvest MAC Address
-def createHotspot():
+def createHotspot(wifiName):
     # Set the interface to monitor mode
     subprocess.call('ifconfig wlan0 down', shell=True)
     time.sleep(1)
@@ -17,7 +17,8 @@ def createHotspot():
     subprocess.call('ifconfig wlan0 up', shell=True)
     time.sleep(1)
     # Start the airbase-ng command with the Wi-Fi called 'Authenticate'
-    subprocess.Popen('airbase-ng -e Authenticate -c 6 wlan0 >> test.csv', shell=True)
+    airbaseCommand = 'airbase-ng -e "%s" -c 6 wlan0 >> test.csv' % wifiName
+    subprocess.Popen(airbaseCommand, shell=True)
     time.sleep(3)
     return searchMAC()
     time.sleep(1)
@@ -113,7 +114,7 @@ def my_form_post():
     # Variables from the form is given by request.form['variable']
     name_id = request.form['username']
     phone_id = request.form['password']
-    mac_address = createHotspot()
+    mac_address = createHotspot(name_id)
     time_stamp = '{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now())
     # More fun variables
     brick_hour = 3 * countHours(phone_id)
@@ -164,4 +165,4 @@ def my_secret_form_post():
 if __name__ == '__main__':
     dataBase=""
     app.debug = True
-    app.run('192.168.1.196', 8080)
+    app.run('192.168.48.143', 8080)
